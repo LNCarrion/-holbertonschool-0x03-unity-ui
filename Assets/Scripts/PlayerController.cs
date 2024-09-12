@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using TMPro;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
@@ -13,10 +13,12 @@ public class PlayerController : MonoBehaviour
     private float MovementX, MovementY;
     private int score = 0;
     private Vector3 otherTeleporter;
+    public TextMeshProUGUI scoreText;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        SetScoreText();
     }
 
     // Update is called once per frame
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Pickup"))
         {
             score++;
-            Debug.Log($"Score: {score}");
+            SetScoreText();
             Destroy(other.gameObject);
         }
 
@@ -80,4 +82,10 @@ public class PlayerController : MonoBehaviour
         if (TeleporterName == other.name)
             isTeleport = false;
     }
+
+    void SetScoreText()
+    {
+        scoreText.text = "Score: " + score.ToString();
+    }
+
 }
